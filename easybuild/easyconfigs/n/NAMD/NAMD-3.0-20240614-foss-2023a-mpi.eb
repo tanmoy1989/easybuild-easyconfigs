@@ -1,0 +1,30 @@
+name = 'NAMD'
+version = '3.0-20240614'
+versionsuffix = '-mpi'
+
+homepage = 'https://www.ks.uiuc.edu/Research/namd/'
+description = """NAMD is a parallel molecular dynamics code designed for high-performance simulation of
+ large biomolecular systems."""
+
+toolchain = {'name': 'foss', 'version': '2023a'}
+toolchainopts = {'usempi': True, 'openmp': False, 'pic': True}
+
+sources = ['NAMD_3.0_Source.tar.gz']
+checksums = ['301c64f0f1db860f7336efdb26223ccf66b5ab42bfc9141df8d81ec1e20bf472']
+
+builddependencies = [
+    ('CMake', '3.26.3'),
+]
+
+dependencies = [
+    ('tcsh', '6.24.10'),
+    ('Tcl', '8.6.13'),
+]
+
+skipsteps = ["patch"]
+
+# Hard to make charm build the mpi version with gcc on POWER, so we don't currently try
+charm_arch = 'mpi-linux-x86_64'
+charm_extra_cxxflags = '-fpermissive'
+
+moduleclass = 'chem'
